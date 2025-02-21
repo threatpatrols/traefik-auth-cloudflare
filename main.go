@@ -98,7 +98,7 @@ func authHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	// Could also look in the cookies for CF_AUTHORIZATION
 	accessJWT := r.Header.Get("Cf-Access-Jwt-Assertion")
 	if accessJWT == "" {
-		write(w, http.StatusUnauthorized, "No token on the request")
+		write(w, http.StatusUnauthorized, "Cloudflare-Auth-Token: No token on the request")
 		return
 	}
 
@@ -106,7 +106,7 @@ func authHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ctx := r.Context()
 	idToken, err := verifier.Verify(ctx, accessJWT)
 	if err != nil {
-		write(w, http.StatusUnauthorized, fmt.Sprintf("Invalid token: %s", err.Error()))
+		write(w, http.StatusUnauthorized, fmt.Sprintf("Cloudflare-Auth-Token: Invalid token on the request: %s", err.Error()))
 		return
 	}
 
@@ -114,7 +114,7 @@ func authHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	claims := Claims{}
 	err = idToken.Claims(&claims)
 	if err != nil {
-		write(w, http.StatusUnauthorized, fmt.Sprintf("Invalid claims: %s", err.Error()))
+		write(w, http.StatusUnauthorized, fmt.Sprintf("Cloudflare-Auth-Token: Invalid claims on the request: %s", err.Error()))
 		return
 	}
 
