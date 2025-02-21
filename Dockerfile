@@ -6,6 +6,10 @@ WORKDIR /traefik-auth-cloudflare
 COPY . .
 
 RUN set -x \
+    && go mod tidy \
+    && cat go.sum
+
+RUN set -x \
     && go build \
     && ./traefik-auth-cloudflare || true
 

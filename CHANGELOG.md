@@ -1,5 +1,10 @@
-# 2.1 -- 2025-02-21
+# 2.2 -- 2025-02-21
 
+* Bump golang.org/x/net to v0.33.0
+* Bump golang.org/x/crypto to v0.31.0
+
+
+# 2.1 -- 2025-02-21
 * Prefix HTTP error responses with "Cloudflare-Auth-Token:" making errors easier to diagnose
 
 
